@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { getMockWeatherByCity } from './data/mockWeather'
 import { delay } from './utils/delay'
-import { useDebounce } from './utils/useDebounce'
 import { getFavorites, addFavorite, removeFavorite } from './utils/storage'
 import { Search } from './components/Search'
 import { CurrentWeather } from './components/CurrentWeather'
@@ -24,8 +23,6 @@ export default function App() {
     return 'light'
   })
   const [favorites, setFavorites] = useState(getFavorites)
-
-  const debouncedInput = useDebounce(searchInput, 300)
 
   const loadWeather = useCallback(async (cityName) => {
     setError(null)
@@ -67,14 +64,6 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
-
-  // Optional: auto-search after 300ms of no typing when input differs from current city
-  useEffect(() => {
-    const q = (debouncedInput || '').trim()
-    if (!q || loading) return
-    if (weather?.location?.name?.toLowerCase() === q.toLowerCase()) return
-    loadWeather(q)
-  }, [debouncedInput, loading, weather?.location?.name, loadWeather])
 
   const currentCity = weather?.location?.name ?? null
   const isFavorite = currentCity ? favorites.includes(currentCity) : false
