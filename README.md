@@ -14,7 +14,7 @@ To build for production: `npm run build`. To preview the build: `npm run preview
 
 ## Where mock data lives
 
-Mock weather data is in **`src/data/mockWeather.js`**. It defines 5 cities: **London**, **New York**, **Tokyo**, **Paris**, and **Sydney**. Each city has:
+Mock weather data is in **`src/data/mockWeather.js`**. It defines 6 cities: **London**, **New York**, **Tokyo**, **Paris**, **Sydney**, and **Berlin**. Each city has:
 
 - **Current weather**: temp, feels like, description, icon, humidity, wind speed (metric).
 - **Forecast**: 5 days with date, min/max temp, description, icon.
@@ -34,3 +34,7 @@ Searching for any other city shows a “City not found” message. No backend or
 
 - **Frontend**: React (Vite), HTML, CSS (no Tailwind).
 - **Data**: Mock JSON-like data in `src/data/mockWeather.js` — no backend, no database.
+
+## Changelog
+
+- **v1.1.0** – Added Berlin to mock cities; added app footer with version.

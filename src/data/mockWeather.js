@@ -95,6 +95,24 @@ const MOCK_WEATHER = {
       { date: '2026-02-14', minTemp: 19, maxTemp: 24, description: 'Cloudy', icon: 'cloudy' },
     ],
   },
+  berlin: {
+    location: { name: 'Berlin', country: 'Germany' },
+    current: {
+      temp: 4,
+      feelsLike: 1,
+      description: 'Cloudy',
+      icon: 'cloudy',
+      humidity: 78,
+      windSpeed: 4.2,
+    },
+    forecast: [
+      { date: '2026-02-10', minTemp: 2, maxTemp: 6, description: 'Light rain', icon: 'rain' },
+      { date: '2026-02-11', minTemp: 1, maxTemp: 5, description: 'Partly cloudy', icon: 'partly-cloudy' },
+      { date: '2026-02-12', minTemp: 0, maxTemp: 4, description: 'Clear', icon: 'clear' },
+      { date: '2026-02-13', minTemp: -1, maxTemp: 3, description: 'Snow', icon: 'snow' },
+      { date: '2026-02-14', minTemp: 1, maxTemp: 5, description: 'Cloudy', icon: 'cloudy' },
+    ],
+  },
 }
 
 const NORMALIZED_KEYS = Object.keys(MOCK_WEATHER).reduce((acc, key) => {

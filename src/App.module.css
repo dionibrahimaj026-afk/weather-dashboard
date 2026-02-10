@@ -93,3 +93,12 @@
   max-width: 28rem;
   margin: 0 auto;
 }
+
+.footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}

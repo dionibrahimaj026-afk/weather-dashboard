@@ -35,7 +35,7 @@ export default function App() {
         setError(null)
       } else {
         setWeather(null)
-        setError('City not found. Try London, New York, Tokyo, Paris, or Sydney.')
+        setError('City not found. Try London, New York, Tokyo, Paris, Sydney, or Berlin.')
       }
     } finally {
       setLoading(false)
@@ -138,10 +138,14 @@ export default function App() {
         )}
         {!weather && !loading && !error && (
           <p className={styles.hint}>
-            Search for a city to see current weather and forecast. Try London, New York, Tokyo, Paris, or Sydney.
+            Search for a city to see current weather and forecast. Try London, New York, Tokyo, Paris, Sydney, or Berlin.
           </p>
         )}
       </main>
+
+      <footer className={styles.footer}>
+        Weather Dashboard · v1.1.0
+      </footer>
     </div>
   )
 }
