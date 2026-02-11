@@ -64,7 +64,7 @@ const MOCK_WEATHER = {
     current: {
       temp: 6,
       feelsLike: 3,
-      description: 'Light rain',
+      description: 'Heavy rain',
       icon: 'rain',
       humidity: 88,
       windSpeed: 6.0,
@@ -103,7 +103,7 @@ const MOCK_WEATHER = {
       description: 'Cloudy',
       icon: 'cloudy',
       humidity: 78,
-      windSpeed: 4.2,
+      windSpeed: 8.5,
     },
     forecast: [
       { date: '2026-02-10', minTemp: 2, maxTemp: 6, description: 'Light rain', icon: 'rain' },

@@ -30,6 +30,10 @@ Thumbs.db
 # Vite
 *.local
 
+# Local / personal documentation (do not push)
+EVERYTHING-YOU-SHOULD-KNOW.txt
+docs/EVERYTHING-YOU-SHOULD-KNOW.txt
+
 # Optional: uncomment if you use them
 # .cursor/
 # coverage/

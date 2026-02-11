@@ -6,6 +6,7 @@ import { Search } from './components/Search'
 import { CurrentWeather } from './components/CurrentWeather'
 import { Forecast } from './components/Forecast'
 import { Favorites } from './components/Favorites'
+import { WeatherAlerts } from './components/WeatherAlerts'
 import styles from './App.module.css'
 
 const SEARCH_DELAY_MS = 700
@@ -159,6 +160,7 @@ export default function App() {
         )}
         {weather && !loading && (
           <>
+            <WeatherAlerts current={weather.current} unit={unit} />
             <CurrentWeather
               data={weather}
               unit={unit}
