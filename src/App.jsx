@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { getMockWeatherByCity } from './data/mockWeather'
+import { getMockWeatherByCity, getMockCityNames } from './data/mockWeather'
 import { delay } from './utils/delay'
 import { getFavorites, addFavorite, removeFavorite } from './utils/storage'
 import { Search } from './components/Search'
@@ -67,6 +67,13 @@ export default function App() {
 
   const currentCity = weather?.location?.name ?? null
   const isFavorite = currentCity ? favorites.includes(currentCity) : false
+  const quickCities = getMockCityNames()
+
+  function handleSurpriseMe() {
+    const cities = getMockCityNames()
+    const random = cities[Math.floor(Math.random() * cities.length)]
+    handleSearch(random)
+  }
 
   return (
     <div className={styles.app}>
@@ -78,6 +85,31 @@ export default function App() {
           loading={loading}
           placeholder="e.g. London, New York, Tokyo"
         />
+        <div className={styles.quickRow}>
+          <span className={styles.quickLabel}>Quick:</span>
+          <div className={styles.quickCities}>
+            {quickCities.map((city) => (
+              <button
+                key={city}
+                type="button"
+                className={currentCity === city ? styles.chipActive : styles.chip}
+                onClick={() => handleSearch(city)}
+                disabled={loading}
+              >
+                {city}
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            className={styles.surpriseBtn}
+            onClick={handleSurpriseMe}
+            disabled={loading}
+            title="Load a random city"
+          >
+            🎲 Surprise me
+          </button>
+        </div>
         <div className={styles.controls}>
           <div className={styles.unitToggle} role="group" aria-label="Units">
             <button

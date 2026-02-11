@@ -10,6 +10,83 @@
   gap: 0;
 }
 
+.quickRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.5rem 1.25rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.quickLabel {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.quickCities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+}
+
+.chip:hover:not(:disabled) {
+  background: var(--border);
+}
+
+.chip:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.chipActive {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: white;
+}
+
+.chipActive:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.chipActive:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.surpriseBtn {
+  margin-left: auto;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+}
+
+.surpriseBtn:hover:not(:disabled) {
+  background: var(--border);
+}
+
+.surpriseBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .controls {
   display: flex;
   flex-wrap: wrap;
