@@ -1,4 +1,5 @@
 import { WeatherIcon } from './WeatherIcon'
+import { CountryFlag } from './CountryFlag'
 import styles from './CurrentWeather.module.css'
 
 function formatTemp(temp, unit) {
@@ -38,7 +39,10 @@ export function CurrentWeather({ data, unit, onAddFavorite, isFavorite }) {
       </div>
       <div className={styles.card}>
         <div className={styles.location}>
-          {location.name}, {location.country}
+          {location.countryCode && (
+            <CountryFlag code={location.countryCode} className={styles.flag} title={location.country} />
+          )}
+          {location.name}
         </div>
         <div className={styles.main}>
           <WeatherIcon name={current.icon} className={styles.icon} />
