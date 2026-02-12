@@ -14,10 +14,11 @@ To build for production: `npm run build`. To preview the build: `npm run preview
 
 ## Where mock data lives
 
-Mock weather data is in **`src/data/mockWeather.js`**. It defines 6 cities: **London**, **New York**, **Tokyo**, **Paris**, **Sydney**, and **Berlin**. Each city has:
+Mock weather data is in **`src/data/mockWeather.js`**. It defines 7 cities: **London**, **New York**, **Tokyo**, **Paris**, **Sydney**, **Berlin**, and **Oklahoma City**. Each city has:
 
 - **Current weather**: temp, feels like, description, icon, humidity, wind speed (metric).
-- **Forecast**: 5 days with date, min/max temp, description, icon.
+- **Forecast**: **7 days** with date, min/max temp, description, icon.
+- **Natural hazards** (in mock data): heavy rain, high wind, **tornado** (e.g. Oklahoma City), **snow storm** (e.g. New York, Berlin forecast).
 
 Searching for any other city shows a “City not found” message. No backend or API is used; everything is driven by this file.
 
@@ -26,7 +27,8 @@ Searching for any other city shows a “City not found” message. No backend or
 - **Search** – City name input and Search button; loads weather from mock data with a short loading delay. “City not found” if the city isn’t in the mock list.
 - **Current weather** – Location, current temp, “feels like”, description, icon, humidity, wind speed.
 - **Units** – Toggle between metric (°C, m/s) and imperial (°F, mph).
-- **Forecast** – Next 5 days: date, min/max temp, description, icon (card layout).
+- **Forecast** – Next **7 days**: date, min/max temp, description, icon (card layout). Includes natural hazard conditions (tornado, snow storm) where defined in mock data.
+- **Alerts** – Severe weather alerts for heavy rain, high wind, tornado, and snow storm (amber or red banner).
 - **Favorites** – Add current city to favorites; list of favorite cities; click one to load its weather. Favorites are stored in **localStorage** only.
 - **UI** – Search at top, current weather in the middle, forecast below. Responsive layout. Dark/light theme toggle.
 

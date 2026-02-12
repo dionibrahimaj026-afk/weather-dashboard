@@ -7,6 +7,9 @@ const ICONS = {
   'partly-cloudy': '⛅',
   rain: '🌧️',
   snow: '❄️',
+  tornado: '🌪️',
+  'snow-storm': '🌨️',
+  thunderstorm: '⛈️',
 }
 
 export function WeatherIcon({ name, className = '' }) {
