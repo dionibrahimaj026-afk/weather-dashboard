@@ -5,6 +5,15 @@ const MOCK_WEATHER = {
   london: {
     location: { name: 'London', country: 'United Kingdom', countryCode: 'GB' },
     current: { temp: 12, feelsLike: 10, description: 'Partly cloudy', icon: 'partly-cloudy', humidity: 72, windSpeed: 5.2 },
+    hourlyForecast: [
+      { hour: '14:00', temp: 12, icon: 'partly-cloudy', description: 'Partly cloudy' },
+      { hour: '15:00', temp: 11, icon: 'partly-cloudy', description: 'Partly cloudy' },
+      { hour: '16:00', temp: 11, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '17:00', temp: 10, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '18:00', temp: 9, icon: 'rain', description: 'Light rain' },
+      { hour: '19:00', temp: 9, icon: 'rain', description: 'Light rain' },
+      { hour: '20:00', temp: 8, icon: 'cloudy', description: 'Cloudy' },
+    ],
     forecast: [
       { date: '2026-02-10', minTemp: 8, maxTemp: 13, description: 'Light rain', icon: 'rain' },
       { date: '2026-02-11', minTemp: 7, maxTemp: 11, description: 'Cloudy', icon: 'cloudy' },
@@ -18,6 +27,15 @@ const MOCK_WEATHER = {
   'new york': {
     location: { name: 'New York', country: 'United States', countryCode: 'US' },
     current: { temp: 3, feelsLike: -1, description: 'Clear', icon: 'clear', humidity: 55, windSpeed: 4.0 },
+    hourlyForecast: [
+      { hour: '14:00', temp: 3, icon: 'clear', description: 'Clear' },
+      { hour: '15:00', temp: 2, icon: 'clear', description: 'Clear' },
+      { hour: '16:00', temp: 1, icon: 'partly-cloudy', description: 'Partly cloudy' },
+      { hour: '17:00', temp: 0, icon: 'partly-cloudy', description: 'Partly cloudy' },
+      { hour: '18:00', temp: -1, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '19:00', temp: -2, icon: 'snow', description: 'Snow' },
+      { hour: '20:00', temp: -2, icon: 'snow', description: 'Snow' },
+    ],
     forecast: [
       { date: '2026-02-10', minTemp: 0, maxTemp: 5, description: 'Snow', icon: 'snow' },
       { date: '2026-02-11', minTemp: -2, maxTemp: 4, description: 'Partly cloudy', icon: 'partly-cloudy' },
@@ -31,6 +49,15 @@ const MOCK_WEATHER = {
   tokyo: {
     location: { name: 'Tokyo', country: 'Japan', countryCode: 'JP' },
     current: { temp: 8, feelsLike: 6, description: 'Cloudy', icon: 'cloudy', humidity: 65, windSpeed: 3.5 },
+    hourlyForecast: [
+      { hour: '14:00', temp: 8, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '15:00', temp: 9, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '16:00', temp: 8, icon: 'rain', description: 'Rain' },
+      { hour: '17:00', temp: 7, icon: 'rain', description: 'Rain' },
+      { hour: '18:00', temp: 6, icon: 'partly-cloudy', description: 'Partly cloudy' },
+      { hour: '19:00', temp: 6, icon: 'partly-cloudy', description: 'Partly cloudy' },
+      { hour: '20:00', temp: 5, icon: 'cloudy', description: 'Cloudy' },
+    ],
     forecast: [
       { date: '2026-02-10', minTemp: 6, maxTemp: 11, description: 'Rain', icon: 'rain' },
       { date: '2026-02-11', minTemp: 5, maxTemp: 10, description: 'Partly cloudy', icon: 'partly-cloudy' },
@@ -44,6 +71,15 @@ const MOCK_WEATHER = {
   paris: {
     location: { name: 'Paris', country: 'France', countryCode: 'FR' },
     current: { temp: 6, feelsLike: 3, description: 'Heavy rain', icon: 'rain', humidity: 88, windSpeed: 6.0 },
+    hourlyForecast: [
+      { hour: '14:00', temp: 6, icon: 'rain', description: 'Heavy rain' },
+      { hour: '15:00', temp: 6, icon: 'rain', description: 'Rain' },
+      { hour: '16:00', temp: 5, icon: 'rain', description: 'Light rain' },
+      { hour: '17:00', temp: 5, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '18:00', temp: 5, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '19:00', temp: 4, icon: 'partly-cloudy', description: 'Partly cloudy' },
+      { hour: '20:00', temp: 4, icon: 'cloudy', description: 'Cloudy' },
+    ],
     forecast: [
       { date: '2026-02-10', minTemp: 4, maxTemp: 8, description: 'Rain', icon: 'rain' },
       { date: '2026-02-11', minTemp: 3, maxTemp: 7, description: 'Cloudy', icon: 'cloudy' },
@@ -57,6 +93,15 @@ const MOCK_WEATHER = {
   sydney: {
     location: { name: 'Sydney', country: 'Australia', countryCode: 'AU' },
     current: { temp: 26, feelsLike: 28, description: 'Sunny', icon: 'clear', humidity: 45, windSpeed: 4.5 },
+    hourlyForecast: [
+      { hour: '14:00', temp: 26, icon: 'clear', description: 'Sunny' },
+      { hour: '15:00', temp: 25, icon: 'clear', description: 'Clear' },
+      { hour: '16:00', temp: 24, icon: 'clear', description: 'Clear' },
+      { hour: '17:00', temp: 23, icon: 'partly-cloudy', description: 'Partly cloudy' },
+      { hour: '18:00', temp: 22, icon: 'partly-cloudy', description: 'Partly cloudy' },
+      { hour: '19:00', temp: 21, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '20:00', temp: 20, icon: 'cloudy', description: 'Cloudy' },
+    ],
     forecast: [
       { date: '2026-02-10', minTemp: 22, maxTemp: 28, description: 'Partly cloudy', icon: 'partly-cloudy' },
       { date: '2026-02-11', minTemp: 21, maxTemp: 27, description: 'Clear', icon: 'clear' },
@@ -70,6 +115,15 @@ const MOCK_WEATHER = {
   berlin: {
     location: { name: 'Berlin', country: 'Germany', countryCode: 'DE' },
     current: { temp: 4, feelsLike: 1, description: 'Cloudy', icon: 'cloudy', humidity: 78, windSpeed: 8.5 },
+    hourlyForecast: [
+      { hour: '14:00', temp: 4, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '15:00', temp: 3, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '16:00', temp: 3, icon: 'rain', description: 'Light rain' },
+      { hour: '17:00', temp: 2, icon: 'rain', description: 'Light rain' },
+      { hour: '18:00', temp: 2, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '19:00', temp: 1, icon: 'partly-cloudy', description: 'Partly cloudy' },
+      { hour: '20:00', temp: 1, icon: 'cloudy', description: 'Cloudy' },
+    ],
     forecast: [
       { date: '2026-02-10', minTemp: 2, maxTemp: 6, description: 'Light rain', icon: 'rain' },
       { date: '2026-02-11', minTemp: 1, maxTemp: 5, description: 'Partly cloudy', icon: 'partly-cloudy' },
@@ -83,6 +137,15 @@ const MOCK_WEATHER = {
   'oklahoma city': {
     location: { name: 'Oklahoma City', country: 'United States', countryCode: 'US' },
     current: { temp: 18, feelsLike: 16, description: 'Tornado watch', icon: 'tornado', humidity: 85, windSpeed: 12.0 },
+    hourlyForecast: [
+      { hour: '14:00', temp: 18, icon: 'tornado', description: 'Tornado watch' },
+      { hour: '15:00', temp: 17, icon: 'thunderstorm', description: 'Thunderstorm' },
+      { hour: '16:00', temp: 16, icon: 'thunderstorm', description: 'Thunderstorm' },
+      { hour: '17:00', temp: 15, icon: 'rain', description: 'Heavy rain' },
+      { hour: '18:00', temp: 14, icon: 'rain', description: 'Rain' },
+      { hour: '19:00', temp: 13, icon: 'cloudy', description: 'Cloudy' },
+      { hour: '20:00', temp: 12, icon: 'partly-cloudy', description: 'Partly cloudy' },
+    ],
     forecast: [
       { date: '2026-02-10', minTemp: 15, maxTemp: 20, description: 'Thunderstorm', icon: 'thunderstorm' },
       { date: '2026-02-11', minTemp: 14, maxTemp: 22, description: 'Tornado risk', icon: 'tornado' },
