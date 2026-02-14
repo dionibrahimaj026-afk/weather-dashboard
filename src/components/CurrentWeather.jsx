@@ -18,6 +18,12 @@ function formatWind(speedMs, unit) {
   return `${speedMs.toFixed(1)} m/s`
 }
 
+function formatCoords(lat, lon) {
+  const latStr = lat >= 0 ? `${lat.toFixed(4)}° N` : `${(-lat).toFixed(4)}° S`
+  const lonStr = lon >= 0 ? `${lon.toFixed(4)}° E` : `${(-lon).toFixed(4)}° W`
+  return `${latStr}, ${lonStr}`
+}
+
 export function CurrentWeather({ data, unit, onAddFavorite, isFavorite }) {
   if (!data) return null
 
@@ -44,6 +50,37 @@ export function CurrentWeather({ data, unit, onAddFavorite, isFavorite }) {
           )}
           {location.name}
         </div>
+        {location.description && (
+          <p className={styles.cityDesc}>{location.description}</p>
+        )}
+        {(location.population != null || location.timezone || location.localTime || (location.lat != null && location.lon != null)) && (
+          <dl className={styles.meta}>
+            {location.population != null && (
+              <div>
+                <dt>Population</dt>
+                <dd>{location.population.toLocaleString()}</dd>
+              </div>
+            )}
+            {location.timezone && (
+              <div>
+                <dt>Timezone</dt>
+                <dd>{location.timezone}</dd>
+              </div>
+            )}
+            {location.localTime && (
+              <div>
+                <dt>Local time</dt>
+                <dd>{location.localTime}</dd>
+              </div>
+            )}
+            {location.lat != null && location.lon != null && (
+              <div>
+                <dt>Coordinates</dt>
+                <dd>{formatCoords(location.lat, location.lon)}</dd>
+              </div>
+            )}
+          </dl>
+        )}
         <div className={styles.main}>
           <WeatherIcon name={current.icon} className={styles.icon} />
           <div>

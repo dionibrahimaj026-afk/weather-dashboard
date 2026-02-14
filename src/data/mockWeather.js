@@ -3,7 +3,17 @@
  */
 const MOCK_WEATHER = {
   london: {
-    location: { name: 'London', country: 'United Kingdom', countryCode: 'GB' },
+    location: {
+      name: 'London',
+      country: 'United Kingdom',
+      countryCode: 'GB',
+      population: 9_002_488,
+      timezone: 'Europe/London',
+      localTime: '14:02',
+      description: 'Historic capital blending tradition with modern vibrancy.',
+      lat: 51.5074,
+      lon: -0.1278,
+    },
     current: { temp: 12, feelsLike: 10, description: 'Partly cloudy', icon: 'partly-cloudy', humidity: 72, windSpeed: 5.2 },
     hourlyForecast: [
       { hour: '14:00', temp: 12, icon: 'partly-cloudy', description: 'Partly cloudy' },
@@ -25,7 +35,17 @@ const MOCK_WEATHER = {
     ],
   },
   'new york': {
-    location: { name: 'New York', country: 'United States', countryCode: 'US' },
+    location: {
+      name: 'New York',
+      country: 'United States',
+      countryCode: 'US',
+      population: 8_336_817,
+      timezone: 'America/New_York',
+      localTime: '09:02',
+      description: 'The city that never sleeps, hub of finance and culture.',
+      lat: 40.7128,
+      lon: -74.006,
+    },
     current: { temp: 3, feelsLike: -1, description: 'Clear', icon: 'clear', humidity: 55, windSpeed: 4.0 },
     hourlyForecast: [
       { hour: '14:00', temp: 3, icon: 'clear', description: 'Clear' },
@@ -47,7 +67,17 @@ const MOCK_WEATHER = {
     ],
   },
   tokyo: {
-    location: { name: 'Tokyo', country: 'Japan', countryCode: 'JP' },
+    location: {
+      name: 'Tokyo',
+      country: 'Japan',
+      countryCode: 'JP',
+      population: 13_988_129,
+      timezone: 'Asia/Tokyo',
+      localTime: '23:02',
+      description: 'Neon-lit megacity where ancient temples meet cutting-edge tech.',
+      lat: 35.6762,
+      lon: 139.6503,
+    },
     current: { temp: 8, feelsLike: 6, description: 'Cloudy', icon: 'cloudy', humidity: 65, windSpeed: 3.5 },
     hourlyForecast: [
       { hour: '14:00', temp: 8, icon: 'cloudy', description: 'Cloudy' },
@@ -69,7 +99,17 @@ const MOCK_WEATHER = {
     ],
   },
   paris: {
-    location: { name: 'Paris', country: 'France', countryCode: 'FR' },
+    location: {
+      name: 'Paris',
+      country: 'France',
+      countryCode: 'FR',
+      population: 2_165_423,
+      timezone: 'Europe/Paris',
+      localTime: '15:02',
+      description: 'City of light, art, fashion, and romance.',
+      lat: 48.8566,
+      lon: 2.3522,
+    },
     current: { temp: 6, feelsLike: 3, description: 'Heavy rain', icon: 'rain', humidity: 88, windSpeed: 6.0 },
     hourlyForecast: [
       { hour: '14:00', temp: 6, icon: 'rain', description: 'Heavy rain' },
@@ -91,7 +131,17 @@ const MOCK_WEATHER = {
     ],
   },
   sydney: {
-    location: { name: 'Sydney', country: 'Australia', countryCode: 'AU' },
+    location: {
+      name: 'Sydney',
+      country: 'Australia',
+      countryCode: 'AU',
+      population: 5_312_163,
+      timezone: 'Australia/Sydney',
+      localTime: '01:02',
+      description: 'Harbor city with iconic opera house and sunny beaches.',
+      lat: -33.8688,
+      lon: 151.2093,
+    },
     current: { temp: 26, feelsLike: 28, description: 'Sunny', icon: 'clear', humidity: 45, windSpeed: 4.5 },
     hourlyForecast: [
       { hour: '14:00', temp: 26, icon: 'clear', description: 'Sunny' },
@@ -113,7 +163,17 @@ const MOCK_WEATHER = {
     ],
   },
   berlin: {
-    location: { name: 'Berlin', country: 'Germany', countryCode: 'DE' },
+    location: {
+      name: 'Berlin',
+      country: 'Germany',
+      countryCode: 'DE',
+      population: 3_755_251,
+      timezone: 'Europe/Berlin',
+      localTime: '15:02',
+      description: 'Reborn capital of creativity, history, and nightlife.',
+      lat: 52.52,
+      lon: 13.405,
+    },
     current: { temp: 4, feelsLike: 1, description: 'Cloudy', icon: 'cloudy', humidity: 78, windSpeed: 8.5 },
     hourlyForecast: [
       { hour: '14:00', temp: 4, icon: 'cloudy', description: 'Cloudy' },
@@ -135,7 +195,17 @@ const MOCK_WEATHER = {
     ],
   },
   'oklahoma city': {
-    location: { name: 'Oklahoma City', country: 'United States', countryCode: 'US' },
+    location: {
+      name: 'Oklahoma City',
+      country: 'United States',
+      countryCode: 'US',
+      population: 681_054,
+      timezone: 'America/Chicago',
+      localTime: '08:02',
+      description: 'Heart of the Great Plains, where the wind comes sweeping down.',
+      lat: 35.4676,
+      lon: -97.5164,
+    },
     current: { temp: 18, feelsLike: 16, description: 'Tornado watch', icon: 'tornado', humidity: 85, windSpeed: 12.0 },
     hourlyForecast: [
       { hour: '14:00', temp: 18, icon: 'tornado', description: 'Tornado watch' },

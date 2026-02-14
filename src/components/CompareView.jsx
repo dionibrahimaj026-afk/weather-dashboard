@@ -17,6 +17,13 @@ function formatWind(speedMs, unit) {
   return `${speedMs.toFixed(1)} m/s`
 }
 
+function formatCoords(lat, lon) {
+  if (lat == null || lon == null) return ''
+  const latStr = lat >= 0 ? `${lat.toFixed(2)}°N` : `${(-lat).toFixed(2)}°S`
+  const lonStr = lon >= 0 ? `${lon.toFixed(2)}°E` : `${(-lon).toFixed(2)}°W`
+  return `${latStr}, ${lonStr}`
+}
+
 export function CompareView({ citiesData, unit }) {
   if (!citiesData || citiesData.length === 0) return null
 
@@ -33,6 +40,35 @@ export function CompareView({ citiesData, unit }) {
                 <CountryFlag code={location.countryCode} className={styles.flag} title={location.country} />
                 <h3 className={styles.city}>{location.name}</h3>
               </div>
+              {location.description && (
+                <p className={styles.cityDesc}>{location.description}</p>
+              )}
+              <dl className={styles.meta}>
+                {location.population != null && (
+                  <div>
+                    <dt>Population</dt>
+                    <dd>{location.population.toLocaleString()}</dd>
+                  </div>
+                )}
+                {location.timezone && (
+                  <div>
+                    <dt>Timezone</dt>
+                    <dd>{location.timezone}</dd>
+                  </div>
+                )}
+                {location.localTime && (
+                  <div>
+                    <dt>Local time</dt>
+                    <dd>{location.localTime}</dd>
+                  </div>
+                )}
+                {location.lat != null && location.lon != null && (
+                  <div>
+                    <dt>Coordinates</dt>
+                    <dd>{formatCoords(location.lat, location.lon)}</dd>
+                  </div>
+                )}
+              </dl>
               <div className={styles.main}>
                 <WeatherIcon name={current.icon} className={styles.icon} />
                 <div className={styles.tempBlock}>
