@@ -1,0 +1,72 @@
+import { WeatherIcon } from './WeatherIcon'
+import { CountryFlag } from './CountryFlag'
+import styles from './CompareView.module.css'
+
+function formatTemp(temp, unit) {
+  if (unit === 'imperial') {
+    return `${Math.round((temp * 9) / 5 + 32)}°F`
+  }
+  return `${Math.round(temp)}°C`
+}
+
+function formatWind(speedMs, unit) {
+  if (unit === 'imperial') {
+    const mph = (speedMs * 3600) / 1609.344
+    return `${mph.toFixed(1)} mph`
+  }
+  return `${speedMs.toFixed(1)} m/s`
+}
+
+export function CompareView({ citiesData, unit }) {
+  if (!citiesData || citiesData.length === 0) return null
+
+  return (
+    <section className={styles.section} aria-labelledby="compare-heading">
+      <h2 id="compare-heading">Compare cities</h2>
+      <div className={styles.grid}>
+        {citiesData.map((data) => {
+          if (!data) return null
+          const { location, current } = data
+          return (
+            <article key={location.name} className={styles.card}>
+              <div className={styles.header}>
+                <CountryFlag code={location.countryCode} className={styles.flag} title={location.country} />
+                <h3 className={styles.city}>{location.name}</h3>
+              </div>
+              <div className={styles.main}>
+                <WeatherIcon name={current.icon} className={styles.icon} />
+                <div className={styles.tempBlock}>
+                  <span className={styles.temp}>{formatTemp(current.temp, unit)}</span>
+                  <span className={styles.desc}>{current.description}</span>
+                </div>
+              </div>
+              <dl className={styles.details}>
+                <div>
+                  <dt>Feels like</dt>
+                  <dd>{formatTemp(current.feelsLike, unit)}</dd>
+                </div>
+                <div>
+                  <dt>Humidity</dt>
+                  <dd>{current.humidity}%</dd>
+                </div>
+                <div>
+                  <dt>Wind</dt>
+                  <dd>{formatWind(current.windSpeed, unit)}</dd>
+                </div>
+              </dl>
+              {data.forecast && (
+                <div className={styles.forecastPreview}>
+                  <span className={styles.forecastLabel}>7-day range</span>
+                  <span className={styles.forecastRange}>
+                    {formatTemp(Math.min(...data.forecast.map((d) => d.minTemp)), unit)} –{' '}
+                    {formatTemp(Math.max(...data.forecast.map((d) => d.maxTemp)), unit)}
+                  </span>
+                </div>
+              )}
+            </article>
+          )
+        })}
+      </div>
+    </section>
+  )
+}

@@ -6,6 +6,7 @@ import { Search } from './components/Search'
 import { CurrentWeather } from './components/CurrentWeather'
 import { Forecast } from './components/Forecast'
 import { HourlyForecast } from './components/HourlyForecast'
+import { CompareView } from './components/CompareView'
 import { Favorites } from './components/Favorites'
 import { WeatherAlerts } from './components/WeatherAlerts'
 import styles from './App.module.css'
@@ -25,6 +26,8 @@ export default function App() {
     return 'light'
   })
   const [favorites, setFavorites] = useState(getFavorites)
+  const [compareMode, setCompareMode] = useState(false)
+  const [compareCities, setCompareCities] = useState([])
 
   const loadWeather = useCallback(async (cityName) => {
     setError(null)
@@ -62,6 +65,18 @@ export default function App() {
       setFavorites(addFavorite(cityName))
     }
   }
+
+  function toggleCompareCity(cityName) {
+    setCompareCities((prev) => {
+      if (prev.includes(cityName)) return prev.filter((c) => c !== cityName)
+      if (prev.length >= 4) return prev
+      return [...prev, cityName]
+    })
+  }
+
+  const compareWeatherData = compareCities
+    .map((name) => getMockWeatherByCity(name))
+    .filter(Boolean)
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
@@ -137,8 +152,39 @@ export default function App() {
           >
             {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
           </button>
+          <button
+            type="button"
+            className={compareMode ? styles.compareBtnActive : styles.compareBtn}
+            onClick={() => setCompareMode((m) => !m)}
+            aria-pressed={compareMode}
+            title="Compare cities"
+          >
+            📊 Compare
+          </button>
         </div>
       </div>
+
+      {compareMode && (
+        <div className={styles.compareRow}>
+          <span className={styles.compareLabel}>Select cities (2–4):</span>
+          <div className={styles.compareCities}>
+            {quickCities.map((city) => {
+              const selected = compareCities.includes(city)
+              return (
+                <button
+                  key={city}
+                  type="button"
+                  className={selected ? styles.chipActive : styles.chip}
+                  onClick={() => toggleCompareCity(city)}
+                  title={selected ? 'Remove from comparison' : 'Add to comparison'}
+                >
+                  {city}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
       {favorites.length > 0 && (
         <Favorites
@@ -154,12 +200,23 @@ export default function App() {
             {error}
           </div>
         )}
-        {loading && !weather && (
+        {compareMode && (
+          <>
+            {compareWeatherData.length >= 2 ? (
+              <CompareView citiesData={compareWeatherData} unit={unit} />
+            ) : (
+              <p className={styles.hint}>
+                Select 2–4 cities above to compare weather side by side.
+              </p>
+            )}
+          </>
+        )}
+        {!compareMode && loading && !weather && (
           <div className={styles.loading} aria-live="polite">
             Loading weather…
           </div>
         )}
-        {weather && !loading && (
+        {!compareMode && weather && !loading && (
           <>
             <WeatherAlerts current={weather.current} unit={unit} />
             <CurrentWeather
@@ -172,7 +229,7 @@ export default function App() {
             <Forecast forecast={weather.forecast} unit={unit} />
           </>
         )}
-        {!weather && !loading && !error && (
+        {!compareMode && !weather && !loading && !error && (
           <p className={styles.hint}>
             Search for a city to see current weather and forecast. Try London, New York, Tokyo, Paris, Sydney, Berlin, or Oklahoma City.
           </p>

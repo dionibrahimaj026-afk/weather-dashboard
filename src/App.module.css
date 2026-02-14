@@ -138,6 +138,54 @@
   background: var(--border);
 }
 
+.compareBtn {
+  padding: 0.4rem 0.75rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.compareBtn:hover {
+  background: var(--border);
+}
+
+.compareBtnActive {
+  padding: 0.4rem 0.75rem;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  color: white;
+  font-size: 0.85rem;
+}
+
+.compareBtnActive:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.compareRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.compareLabel {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.compareCities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
 .main {
   flex: 1;
   padding-bottom: 2rem;
