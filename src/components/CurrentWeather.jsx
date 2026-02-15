@@ -1,5 +1,6 @@
 import { WeatherIcon } from './WeatherIcon'
 import { CountryFlag } from './CountryFlag'
+import { calculateWeatherScore } from '../utils/weatherScore'
 import styles from './CurrentWeather.module.css'
 
 function formatTemp(temp, unit) {
@@ -28,6 +29,7 @@ export function CurrentWeather({ data, unit, onAddFavorite, isFavorite }) {
   if (!data) return null
 
   const { location, current } = data
+  const { total: score, breakdown } = calculateWeatherScore(current)
 
   return (
     <section className={styles.section} aria-labelledby="current-weather-heading">
@@ -44,11 +46,16 @@ export function CurrentWeather({ data, unit, onAddFavorite, isFavorite }) {
         </button>
       </div>
       <div className={styles.card}>
-        <div className={styles.location}>
-          {location.countryCode && (
-            <CountryFlag code={location.countryCode} className={styles.flag} title={location.country} />
-          )}
-          {location.name}
+        <div className={styles.locationRow}>
+          <div className={styles.location}>
+            {location.countryCode && (
+              <CountryFlag code={location.countryCode} className={styles.flag} title={location.country} />
+            )}
+            {location.name}
+          </div>
+          <div className={styles.scoreBadge} title={`Temperature: ${breakdown.temperature} | Humidity: ${breakdown.humidity} | Wind: ${breakdown.wind} | Alerts: ${breakdown.alerts} | Visibility: ${breakdown.visibility}`}>
+            {score}/100
+          </div>
         </div>
         {location.description && (
           <p className={styles.cityDesc}>{location.description}</p>

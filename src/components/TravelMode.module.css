@@ -25,6 +25,39 @@
   box-shadow: var(--card-shadow);
 }
 
+.scoreRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.scoreLabel {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.scoreValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.scoreBreakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.scoreBreakdown span {
+  white-space: nowrap;
+}
+
 .header {
   display: flex;
   align-items: center;

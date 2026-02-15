@@ -1,5 +1,6 @@
 import { CountryFlag } from './CountryFlag'
 import { WeatherIcon } from './WeatherIcon'
+import { calculateWeatherScore } from '../utils/weatherScore'
 import styles from './TravelMode.module.css'
 
 function formatTemp(temp, unit) {
@@ -33,6 +34,7 @@ export function TravelMode({ data, unit, onSelectCity }) {
   }
 
   const { location, current } = data
+  const { total: score, breakdown } = calculateWeatherScore(current)
 
   return (
     <section className={styles.section} aria-labelledby="travel-mode-heading">
@@ -40,9 +42,20 @@ export function TravelMode({ data, unit, onSelectCity }) {
         ✈️ Best city to visit today
       </h2>
       <p className={styles.subtitle}>
-        Based on comfortable temperature, low wind, no alerts, and good visibility
+        Based on temperature, humidity, wind, alerts, and visibility
       </p>
       <div className={styles.card}>
+        <div className={styles.scoreRow}>
+          <span className={styles.scoreLabel}>Weather score</span>
+          <span className={styles.scoreValue}>{score}/100</span>
+        </div>
+        <div className={styles.scoreBreakdown}>
+          <span title="Temperature">🌡️ {breakdown.temperature}</span>
+          <span title="Humidity">💧 {breakdown.humidity}</span>
+          <span title="Wind">💨 {breakdown.wind}</span>
+          <span title="Alerts">⚠️ {breakdown.alerts}</span>
+          <span title="Visibility">👁️ {breakdown.visibility}</span>
+        </div>
         <div className={styles.header}>
           <CountryFlag code={location.countryCode} className={styles.flag} title={location.country} />
           <div>
@@ -72,7 +85,7 @@ export function TravelMode({ data, unit, onSelectCity }) {
           </div>
           <div>
             <dt>Alerts</dt>
-            <dd className={styles.noAlerts}>None ✓</dd>
+            <dd className={breakdown.alerts > 0 ? styles.noAlerts : undefined}>{breakdown.alerts > 0 ? 'None ✓' : 'Active'}</dd>
           </div>
         </dl>
         {location.description && (

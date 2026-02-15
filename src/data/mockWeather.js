@@ -245,44 +245,17 @@ export function getMockCityNames() {
   return Object.values(MOCK_WEATHER).map((d) => d.location.name)
 }
 
-/** Travel Mode: best city to visit today based on temp, wind, alerts, visibility */
-const WIND_ALERT_THRESHOLD_MS = 6
-const TORNADO_KEYWORDS = ['tornado', 'tornado watch', 'tornado warning', 'tornado risk']
-const SNOW_STORM_KEYWORDS = ['snow storm', 'snowstorm', 'blizzard']
-const HEAVY_RAIN_KEYWORDS = ['heavy rain', 'heavy rainfall']
-const IDEAL_TEMP_C = 20
-const MIN_VISIBILITY_KM = 6
+import { calculateWeatherScore } from '../utils/weatherScore'
 
-function hasAlerts(current) {
-  if (!current) return true
-  const desc = (current.description || '').toLowerCase()
-  if (TORNADO_KEYWORDS.some((k) => desc.includes(k))) return true
-  if (SNOW_STORM_KEYWORDS.some((k) => desc.includes(k))) return true
-  if (HEAVY_RAIN_KEYWORDS.some((k) => desc.includes(k)) || desc === 'rain') return true
-  if (current.windSpeed >= WIND_ALERT_THRESHOLD_MS) return true
-  return false
-}
-
+/** Travel Mode: best city to visit today based on weather score */
 export function getBestCityForTravel() {
-  const candidates = Object.values(MOCK_WEATHER).filter(
-    (data) => !hasAlerts(data.current)
-  )
-  if (candidates.length === 0) return null
-
-  const visibility = (v) => v ?? 0
-  const score = (data) => {
-    const { temp, windSpeed } = data.current
-    const vis = visibility(data.current.visibility)
-    if (vis < MIN_VISIBILITY_KM) return -Infinity
-    const tempScore = 100 - 5 * Math.abs(temp - IDEAL_TEMP_C)
-    const windScore = Math.max(0, 100 - windSpeed * 10)
-    const visScore = Math.min(100, vis * 10)
-    return tempScore + windScore + visScore
-  }
-
-  return candidates.reduce((best, city) =>
-    score(city) > score(best) ? city : best
-  )
+  const cities = Object.values(MOCK_WEATHER)
+  if (cities.length === 0) return null
+  return cities.reduce((best, city) => {
+    const a = calculateWeatherScore(best.current).total
+    const b = calculateWeatherScore(city.current).total
+    return b > a ? city : best
+  })
 }
 
 export default MOCK_WEATHER

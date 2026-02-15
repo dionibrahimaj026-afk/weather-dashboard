@@ -1,5 +1,6 @@
 import { WeatherIcon } from './WeatherIcon'
 import { CountryFlag } from './CountryFlag'
+import { calculateWeatherScore } from '../utils/weatherScore'
 import styles from './CompareView.module.css'
 
 function formatTemp(temp, unit) {
@@ -34,11 +35,17 @@ export function CompareView({ citiesData, unit }) {
         {citiesData.map((data) => {
           if (!data) return null
           const { location, current } = data
+          const { total, breakdown } = calculateWeatherScore(current)
           return (
             <article key={location.name} className={styles.card}>
               <div className={styles.header}>
                 <CountryFlag code={location.countryCode} className={styles.flag} title={location.country} />
-                <h3 className={styles.city}>{location.name}</h3>
+                <div>
+                  <h3 className={styles.city}>{location.name}</h3>
+                  <span className={styles.score} title={`Temp: ${breakdown.temperature} | Humidity: ${breakdown.humidity} | Wind: ${breakdown.wind} | Alerts: ${breakdown.alerts} | Visibility: ${breakdown.visibility}`}>
+                    {total}/100
+                  </span>
+                </div>
               </div>
               {location.description && (
                 <p className={styles.cityDesc}>{location.description}</p>
