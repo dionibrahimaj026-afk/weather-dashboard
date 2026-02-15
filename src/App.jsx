@@ -5,6 +5,7 @@ import { getFavorites, addFavorite, removeFavorite } from './utils/storage'
 import { Search } from './components/Search'
 import { CurrentWeather } from './components/CurrentWeather'
 import { Forecast } from './components/Forecast'
+import { WeatherCharts } from './components/WeatherCharts'
 import { HourlyForecast } from './components/HourlyForecast'
 import { CompareView } from './components/CompareView'
 import { TravelMode } from './components/TravelMode'
@@ -244,6 +245,7 @@ export default function App() {
               isFavorite={isFavorite}
             />
             <HourlyForecast hourlyForecast={weather.hourlyForecast} unit={unit} />
+            <WeatherCharts hourlyForecast={weather.hourlyForecast} unit={unit} />
             <Forecast forecast={weather.forecast} unit={unit} />
           </>
         )}

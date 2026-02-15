@@ -1,0 +1,85 @@
+.section {
+  padding: 1.25rem;
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+.heading {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.chart {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: var(--card-shadow);
+}
+
+.chartTitle {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.gridLine {
+  stroke: var(--border);
+  stroke-dasharray: 4 2;
+  stroke-opacity: 0.6;
+}
+
+.label {
+  font-size: 10px;
+  fill: var(--text-muted);
+}
+
+.axisLabel {
+  font-size: 9px;
+  fill: var(--text-muted);
+}
+
+.windBar {
+  fill: var(--accent);
+  opacity: 0.85;
+}
+
+.windBar:hover {
+  opacity: 1;
+}
+
+.humidityBar {
+  fill: #0ea5e9;
+  opacity: 0.85;
+}
+
+.humidityBar:hover {
+  opacity: 1;
+}
+
+.barValue {
+  font-size: 9px;
+  font-weight: 600;
+  fill: var(--text);
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
