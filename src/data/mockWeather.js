@@ -14,7 +14,7 @@ const MOCK_WEATHER = {
       lat: 51.5074,
       lon: -0.1278,
     },
-    current: { temp: 12, feelsLike: 10, description: 'Partly cloudy', icon: 'partly-cloudy', humidity: 72, windSpeed: 5.2 },
+    current: { temp: 12, feelsLike: 10, description: 'Partly cloudy', icon: 'partly-cloudy', humidity: 72, windSpeed: 5.2, visibility: 8 },
     hourlyForecast: [
       { hour: '14:00', temp: 12, icon: 'partly-cloudy', description: 'Partly cloudy' },
       { hour: '15:00', temp: 11, icon: 'partly-cloudy', description: 'Partly cloudy' },
@@ -46,7 +46,7 @@ const MOCK_WEATHER = {
       lat: 40.7128,
       lon: -74.006,
     },
-    current: { temp: 3, feelsLike: -1, description: 'Clear', icon: 'clear', humidity: 55, windSpeed: 4.0 },
+    current: { temp: 3, feelsLike: -1, description: 'Clear', icon: 'clear', humidity: 55, windSpeed: 4.0, visibility: 10 },
     hourlyForecast: [
       { hour: '14:00', temp: 3, icon: 'clear', description: 'Clear' },
       { hour: '15:00', temp: 2, icon: 'clear', description: 'Clear' },
@@ -78,7 +78,7 @@ const MOCK_WEATHER = {
       lat: 35.6762,
       lon: 139.6503,
     },
-    current: { temp: 8, feelsLike: 6, description: 'Cloudy', icon: 'cloudy', humidity: 65, windSpeed: 3.5 },
+    current: { temp: 8, feelsLike: 6, description: 'Cloudy', icon: 'cloudy', humidity: 65, windSpeed: 3.5, visibility: 9 },
     hourlyForecast: [
       { hour: '14:00', temp: 8, icon: 'cloudy', description: 'Cloudy' },
       { hour: '15:00', temp: 9, icon: 'cloudy', description: 'Cloudy' },
@@ -110,7 +110,7 @@ const MOCK_WEATHER = {
       lat: 48.8566,
       lon: 2.3522,
     },
-    current: { temp: 6, feelsLike: 3, description: 'Heavy rain', icon: 'rain', humidity: 88, windSpeed: 6.0 },
+    current: { temp: 6, feelsLike: 3, description: 'Heavy rain', icon: 'rain', humidity: 88, windSpeed: 6.0, visibility: 3 },
     hourlyForecast: [
       { hour: '14:00', temp: 6, icon: 'rain', description: 'Heavy rain' },
       { hour: '15:00', temp: 6, icon: 'rain', description: 'Rain' },
@@ -142,7 +142,7 @@ const MOCK_WEATHER = {
       lat: -33.8688,
       lon: 151.2093,
     },
-    current: { temp: 26, feelsLike: 28, description: 'Sunny', icon: 'clear', humidity: 45, windSpeed: 4.5 },
+    current: { temp: 26, feelsLike: 28, description: 'Sunny', icon: 'clear', humidity: 45, windSpeed: 4.5, visibility: 10 },
     hourlyForecast: [
       { hour: '14:00', temp: 26, icon: 'clear', description: 'Sunny' },
       { hour: '15:00', temp: 25, icon: 'clear', description: 'Clear' },
@@ -174,7 +174,7 @@ const MOCK_WEATHER = {
       lat: 52.52,
       lon: 13.405,
     },
-    current: { temp: 4, feelsLike: 1, description: 'Cloudy', icon: 'cloudy', humidity: 78, windSpeed: 8.5 },
+    current: { temp: 4, feelsLike: 1, description: 'Cloudy', icon: 'cloudy', humidity: 78, windSpeed: 8.5, visibility: 5 },
     hourlyForecast: [
       { hour: '14:00', temp: 4, icon: 'cloudy', description: 'Cloudy' },
       { hour: '15:00', temp: 3, icon: 'cloudy', description: 'Cloudy' },
@@ -206,7 +206,7 @@ const MOCK_WEATHER = {
       lat: 35.4676,
       lon: -97.5164,
     },
-    current: { temp: 18, feelsLike: 16, description: 'Tornado watch', icon: 'tornado', humidity: 85, windSpeed: 12.0 },
+    current: { temp: 18, feelsLike: 16, description: 'Tornado watch', icon: 'tornado', humidity: 85, windSpeed: 12.0, visibility: 2 },
     hourlyForecast: [
       { hour: '14:00', temp: 18, icon: 'tornado', description: 'Tornado watch' },
       { hour: '15:00', temp: 17, icon: 'thunderstorm', description: 'Thunderstorm' },
@@ -243,6 +243,46 @@ export function getMockWeatherByCity(cityName) {
 
 export function getMockCityNames() {
   return Object.values(MOCK_WEATHER).map((d) => d.location.name)
+}
+
+/** Travel Mode: best city to visit today based on temp, wind, alerts, visibility */
+const WIND_ALERT_THRESHOLD_MS = 6
+const TORNADO_KEYWORDS = ['tornado', 'tornado watch', 'tornado warning', 'tornado risk']
+const SNOW_STORM_KEYWORDS = ['snow storm', 'snowstorm', 'blizzard']
+const HEAVY_RAIN_KEYWORDS = ['heavy rain', 'heavy rainfall']
+const IDEAL_TEMP_C = 20
+const MIN_VISIBILITY_KM = 6
+
+function hasAlerts(current) {
+  if (!current) return true
+  const desc = (current.description || '').toLowerCase()
+  if (TORNADO_KEYWORDS.some((k) => desc.includes(k))) return true
+  if (SNOW_STORM_KEYWORDS.some((k) => desc.includes(k))) return true
+  if (HEAVY_RAIN_KEYWORDS.some((k) => desc.includes(k)) || desc === 'rain') return true
+  if (current.windSpeed >= WIND_ALERT_THRESHOLD_MS) return true
+  return false
+}
+
+export function getBestCityForTravel() {
+  const candidates = Object.values(MOCK_WEATHER).filter(
+    (data) => !hasAlerts(data.current)
+  )
+  if (candidates.length === 0) return null
+
+  const visibility = (v) => v ?? 0
+  const score = (data) => {
+    const { temp, windSpeed } = data.current
+    const vis = visibility(data.current.visibility)
+    if (vis < MIN_VISIBILITY_KM) return -Infinity
+    const tempScore = 100 - 5 * Math.abs(temp - IDEAL_TEMP_C)
+    const windScore = Math.max(0, 100 - windSpeed * 10)
+    const visScore = Math.min(100, vis * 10)
+    return tempScore + windScore + visScore
+  }
+
+  return candidates.reduce((best, city) =>
+    score(city) > score(best) ? city : best
+  )
 }
 
 export default MOCK_WEATHER

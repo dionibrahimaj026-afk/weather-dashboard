@@ -101,6 +101,12 @@ export function CurrentWeather({ data, unit, onAddFavorite, isFavorite }) {
             <dt>Wind</dt>
             <dd>{formatWind(current.windSpeed, unit)}</dd>
           </div>
+          {current.visibility != null && (
+            <div>
+              <dt>Visibility</dt>
+              <dd>{current.visibility} km</dd>
+            </div>
+          )}
         </dl>
       </div>
     </section>

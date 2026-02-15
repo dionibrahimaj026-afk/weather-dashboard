@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { getMockWeatherByCity, getMockCityNames } from './data/mockWeather'
+import { getMockWeatherByCity, getMockCityNames, getBestCityForTravel } from './data/mockWeather'
 import { delay } from './utils/delay'
 import { getFavorites, addFavorite, removeFavorite } from './utils/storage'
 import { Search } from './components/Search'
@@ -7,6 +7,7 @@ import { CurrentWeather } from './components/CurrentWeather'
 import { Forecast } from './components/Forecast'
 import { HourlyForecast } from './components/HourlyForecast'
 import { CompareView } from './components/CompareView'
+import { TravelMode } from './components/TravelMode'
 import { Favorites } from './components/Favorites'
 import { WeatherAlerts } from './components/WeatherAlerts'
 import styles from './App.module.css'
@@ -28,6 +29,7 @@ export default function App() {
   const [favorites, setFavorites] = useState(getFavorites)
   const [compareMode, setCompareMode] = useState(false)
   const [compareCities, setCompareCities] = useState([])
+  const [travelMode, setTravelMode] = useState(false)
 
   const loadWeather = useCallback(async (cityName) => {
     setError(null)
@@ -155,11 +157,20 @@ export default function App() {
           <button
             type="button"
             className={compareMode ? styles.compareBtnActive : styles.compareBtn}
-            onClick={() => setCompareMode((m) => !m)}
+            onClick={() => { setCompareMode((m) => !m); setTravelMode(false) }}
             aria-pressed={compareMode}
             title="Compare cities"
           >
             📊 Compare
+          </button>
+          <button
+            type="button"
+            className={travelMode ? styles.compareBtnActive : styles.compareBtn}
+            onClick={() => { setTravelMode((m) => !m); setCompareMode(false) }}
+            aria-pressed={travelMode}
+            title="Best city to visit today"
+          >
+            ✈️ Travel
           </button>
         </div>
       </div>
@@ -199,6 +210,13 @@ export default function App() {
           <div className={styles.error} role="alert">
             {error}
           </div>
+        )}
+        {travelMode && (
+          <TravelMode
+            data={getBestCityForTravel()}
+            unit={unit}
+            onSelectCity={(city) => { setTravelMode(false); handleSearch(city) }}
+          />
         )}
         {compareMode && (
           <>
